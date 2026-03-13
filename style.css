@@ -17,9 +17,55 @@ body {
     height: 100vh;
 }
 
-.container {
-    height: 70vh;
-    width: 40vh;
+.calculator {
+    min-height: 80vh;
+    width: 400px;
     background-color: #1E1E1E;
     display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.display {
+    flex: 1;
+    color: #fff;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.display>p {
+    margin: 0 0 10px 0;
+    font-size: 3em;
+}
+
+.keypad {
+    flex-wrap: wrap;
+    flex: 2.5;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.btn {
+    padding: 0;
+    flex: 1 1 20%;
+    color: #ffffff;
+}
+
+.btn>p {
+    margin: 0;
+    font-size: 2em;
+}
+
+.operator {
+    background-color: #FE8A00;
+}
+
+.function {
+    background-color: #707071;
+}
+
+.number {
+    background-color: #464647;
 }
