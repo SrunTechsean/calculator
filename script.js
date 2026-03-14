@@ -1,10 +1,19 @@
+
+const keypad = document.querySelector('.keypad');
+const display = document.querySelector('.display');
+
 // Variables 
 let firstNum = '0';
 let nextNum = '';
 let operator = null;
 
-// Get input from users
-const keypad = document.querySelector('.keypad');
+// Math function
+const add = (a, b) => Number(a) + Number(b);
+const subtract = (a, b) => a - b;
+const multiply = (a, b) => a * b;
+const divide = (a, b) => (a / b).toFixed(10);
+
+// Get User's Input
 keypad.addEventListener('click', (e) => {
     const btn = e.target.closest('.btn');
     if (!btn) return;
@@ -33,41 +42,50 @@ function handleAction(action) {
         case 'add':
         case 'subtract':
         case 'multiply':
-        case 'divide': setOperator(action); break;
-        case 'equal': operate(operator);
-        default: console.log('No such action');
+        case 'divide':
+            setOperator(action);
+            break;
+        case 'equal': operate(operator); break;
+        default: console.log('No handleAction');
     }
 }
 
 function setOperator(action) {
     let operatorSymbol = '';
     switch (action) {
-        case 'add': operatorSymbol = '+'; updateDisplay(operatorSymbol); break;
+        case 'add':
+            // Get the symbol for display
+            operatorSymbol = '+';
+
+            // Get the operator 
+            operator = action;
+            console.log(operator)
+
+            updateDisplay(operatorSymbol);
+            break;
         case 'subtract':
         case 'multiply':
         case 'divide':
-        default: console.log('no such operation');
+        default: console.log('no setOperator');
     }
 }
 
-// Math function
-const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;
-const multiply = (a, b) => a * b;
-const divide = (a, b) => (a / b).toFixed(10);
-
 function operate(operator) {
+    display.textContent = '0';
     switch (operator) {
-        case 'add': return add(firstNum, nextNum); break;
+        case 'add':
+            firstNum = add(firstNum, nextNum);
+            nextNum = 0;
+            updateDisplay(firstNum);
+            break;
         case 'subtract':
         case 'multiply':
         case 'divide':
-        default: console.log('no such operation');
+        default: console.log('no operate');
     }
 }
 
 function updateDisplay(value) {
-    const display = document.querySelector('.display');
     if (display.textContent === '0') {
         display.textContent = value;
     } else if (display.textContent.length > 0) {
