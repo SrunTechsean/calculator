@@ -21,19 +21,23 @@ keypad.addEventListener('click', (e) => {
     const { action, value } = btn.dataset;
 
     if (value != undefined) {
-        handleValue(value);
+        handleNum(value);
     } else if (action) {
         handleAction(action);
     }
 })
 
-function handleValue(value) {
-    if (firstNum !== '0') {
-        nextNum = value;
-        updateDisplay(nextNum);
-    } else {
+function handleNum(value) {
+    if (operator === null && firstNum === '0') {
         firstNum = value;
         updateDisplay(firstNum);
+        console.log(firstNum)
+    } else if (operator === null && firstNum !== '0') {
+        firstNum += value;
+        console.log(firstNum)
+        updateDisplay(firstNum);
+    } else {
+        nextNum += value;
     }
 }
 
