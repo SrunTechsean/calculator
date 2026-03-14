@@ -51,14 +51,14 @@ body {
     font-size: 2em;
 }
 
-.operator {
+.btn-operator {
     background-color: #FE8A00;
 }
 
-.function {
+.btn-function {
     background-color: #707071;
 }
 
-.number {
+.btn-number {
     background-color: #464647;
 }
