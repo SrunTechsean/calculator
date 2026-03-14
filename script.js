@@ -31,14 +31,14 @@ function handleNum(value) {
     if (operator === null && firstNum === '0') {
         firstNum = value;
         updateDisplay(firstNum);
-        console.log(firstNum)
     } else if (operator === null && firstNum !== '0') {
         firstNum += value;
-        console.log(firstNum)
         updateDisplay(firstNum);
     } else {
         nextNum += value;
+        updateDisplay(value);
     }
+    console.log('firstNum:', firstNum, 'nextNum:', nextNum, 'operator', operator)
 }
 
 function handleAction(action) {
@@ -90,9 +90,16 @@ function operate(operator) {
 }
 
 function updateDisplay(value) {
-    if (display.textContent === '0') {
+    // Change the display when no operator have click
+    if (operator === null) {
         display.textContent = value;
-    } else if (display.textContent.length > 0) {
+    }
+    // Change the display if operator is click and content is 0
+    else if (operator !== null && display.textContent === '0') {
+        display.textContent = value;
+    }
+    // Have stuff on screen add on it 
+    else {
         display.textContent += value;
     }
 } 
