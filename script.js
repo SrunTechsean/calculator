@@ -6,6 +6,7 @@ const display = document.querySelector('.display');
 let firstNum = '0';
 let nextNum = '';
 let operator = null;
+let operatorSymbol = '';
 
 // Math function
 const add = (a, b) => Number(a) + Number(b);
@@ -28,78 +29,41 @@ keypad.addEventListener('click', (e) => {
 })
 
 function handleNum(value) {
-    if (operator === null && firstNum === '0') {
-        firstNum = value;
-        updateDisplay(firstNum);
-    } else if (operator === null && firstNum !== '0') {
-        firstNum += value;
-        updateDisplay(firstNum);
+    let current = operator === null ? firstNum : nextNum;
+    if (current === '0') {
+        current = value;
+        console.log(current, "working")
     } else {
-        nextNum += value;
-        updateDisplay(value);
+        current += value;
     }
-    console.log('firstNum:', firstNum, 'nextNum:', nextNum, 'operator', operator)
+
+    if (firstNum === '0') {
+        firstNum = current;
+    } else {
+        nextNum = current;
+    }
+    updateDisplay(current);
+    console.log(`firstNum: ${firstNum}, operator: ${operator}, nextNum: ${nextNum}`);
 }
 
+// calculate when all condition are full
 function handleAction(action) {
-    switch (action) {
-        case 'add':
-        case 'subtract':
-        case 'multiply':
-        case 'divide':
-            setOperator(action);
-            break;
-        case 'equal': operate(operator); break;
-        default: console.log('No handleAction');
-    }
+    return;
 }
 
-function setOperator(action) {
-    let operatorSymbol = '';
-    switch (action) {
-        case 'add':
-            // Get the symbol for display
-            operatorSymbol = '+';
-
-            // Get the operator 
-            operator = action;
-            console.log(operator)
-
-            updateDisplay(operatorSymbol);
-            break;
-        case 'subtract':
-        case 'multiply':
-        case 'divide':
-        default: console.log('no setOperator');
-    }
-}
-
-function operate(operator) {
-    display.textContent = '0';
+// Do the fucking operation
+function operate(operator, firstNum, nextNum) {
     switch (operator) {
-        case 'add':
-            firstNum = add(firstNum, nextNum);
-            nextNum = 0;
-            updateDisplay(firstNum);
-            break;
+        case 'add': return add(firstNum, nextNum);
         case 'subtract':
         case 'multiply':
         case 'divide':
         default: console.log('no operate');
     }
+    return result;
 }
+console.log(operate('add', 1, 1))
 
 function updateDisplay(value) {
-    // Change the display when no operator have click
-    if (operator === null) {
-        display.textContent = value;
-    }
-    // Change the display if operator is click and content is 0
-    else if (operator !== null && display.textContent === '0') {
-        display.textContent = value;
-    }
-    // Have stuff on screen add on it 
-    else {
-        display.textContent += value;
-    }
+    display.textContent = value;
 } 
