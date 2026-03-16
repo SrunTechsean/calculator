@@ -7,6 +7,7 @@ let firstNum = '0';
 let nextNum = '';
 let operator = null;
 let operatorSymbol = '';
+let displayVar = '';
 
 // Math function
 const add = (a, b) => Number(a) + Number(b);
@@ -22,11 +23,11 @@ keypad.addEventListener('click', (e) => {
     const { action, value } = btn.dataset;
 
     if (value != undefined) {
-        let displayNum = handleNum(value);
-        updateDisplay(displayNum);
+        let displayVar = handleNum(value);
+        updateDisplay(displayVar);
     } else if (action) {
-        handleAction(action);
-        updateDisplay(firstNum);
+        let displayVar = handleAction(action);
+        updateDisplay(displayVar);
     }
 })
 
@@ -44,21 +45,35 @@ function handleNum(value) {
     } else {
         nextNum = current;
     }
-    return current;
+    return displayVar = `${firstNum}${operatorSymbol}${nextNum}`;
 }
 
-// calculate when all condition are full
 function handleAction(action) {
+    // Get operation
     if (action !== 'equal') {
+        // set operator to show for display
+        operatorSymbol = setOperator(action);
         operator = action;
     }
 
+    // calculate when all condition are full
     if (firstNum !== '0' && nextNum !== '' && operator !== null) {
         firstNum = operate(operator, firstNum, nextNum);
         nextNum = '';
+        operatorSymbol = '';
     }
 
-    console.log(`firstNum: ${firstNum}, operator: ${operator}, nextNum: ${nextNum}`);
+    return displayVar = `${firstNum}${operatorSymbol}${nextNum}`;
+}
+
+function setOperator(operator) {
+    switch (operator) {
+        case 'add': return '+';
+        case 'subtract': return '-';
+        case 'multiply': return '×';
+        case 'divide': return '÷';
+        default: console.log('no setOperate');
+    }
 }
 
 // Do the fucking operation
