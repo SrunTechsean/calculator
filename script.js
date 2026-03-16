@@ -12,7 +12,7 @@ let operatorSymbol = '';
 const add = (a, b) => Number(a) + Number(b);
 const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
-const divide = (a, b) => (a / b).toFixed(10);
+const divide = (a, b) => (b === 0) ? 'Error' : (a / b).toFixed(2);
 
 // Get User's Input
 keypad.addEventListener('click', (e) => {
@@ -22,9 +22,11 @@ keypad.addEventListener('click', (e) => {
     const { action, value } = btn.dataset;
 
     if (value != undefined) {
-        handleNum(value);
+        let displayNum = handleNum(value);
+        updateDisplay(displayNum);
     } else if (action) {
         handleAction(action);
+        updateDisplay(firstNum);
     }
 })
 
@@ -42,27 +44,33 @@ function handleNum(value) {
     } else {
         nextNum = current;
     }
-    updateDisplay(current);
-    console.log(`firstNum: ${firstNum}, operator: ${operator}, nextNum: ${nextNum}`);
+    return current;
 }
 
 // calculate when all condition are full
 function handleAction(action) {
-    return;
+    if (action !== 'equal') {
+        operator = action;
+    }
+
+    if (firstNum !== '0' && nextNum !== '' && operator !== null) {
+        firstNum = operate(operator, firstNum, nextNum);
+        nextNum = '';
+    }
+
+    console.log(`firstNum: ${firstNum}, operator: ${operator}, nextNum: ${nextNum}`);
 }
 
 // Do the fucking operation
 function operate(operator, firstNum, nextNum) {
     switch (operator) {
         case 'add': return add(firstNum, nextNum);
-        case 'subtract':
-        case 'multiply':
-        case 'divide':
+        case 'subtract': return subtract(firstNum, nextNum);
+        case 'multiply': return multiply(firstNum, nextNum);
+        case 'divide': return divide(firstNum, nextNum);
         default: console.log('no operate');
     }
-    return result;
 }
-console.log(operate('add', 1, 1))
 
 function updateDisplay(value) {
     display.textContent = value;
