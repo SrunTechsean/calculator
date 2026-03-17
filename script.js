@@ -51,19 +51,21 @@ function handleNum(value) {
 }
 
 function handleAction(action) {
-    // Get operation
-    if (operatorArr.includes(action) && firstNum !== '0') {
+
+    // Calculate when all condition are full
+    if (nextNum !== '' && operator !== null) {
+        firstNum = operate(operator, firstNum, nextNum);
+        nextNum = '';
+        operatorSymbol = '';
+    }
+
+    // Set new operator 
+    if (operatorArr.includes(action)) {
         // set operator to show for display
         operatorSymbol = setOperator(action);
         operator = action;
     }
 
-    // Calculate when all condition are full
-    if (firstNum !== '0' && nextNum !== '' && operator !== null) {
-        firstNum = operate(operator, firstNum, nextNum);
-        nextNum = '';
-        operatorSymbol = '';
-    }
     // Clear the display to 0
     else if (action === "clearAll") {
         firstNum = '0';
