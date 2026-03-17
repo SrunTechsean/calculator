@@ -15,7 +15,7 @@ const operatorArr = ['add', 'subtract', 'multiply', 'divide'];
 const add = (a, b) => Number(a) + Number(b);
 const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
-const divide = (a, b) => (b === 0) ? 'Error' : (a / b).toFixed(2);
+const divide = (a, b) => (b == 0) ? 'Error' : (a / b).toFixed(2);
 
 // Get User's Input
 keypad.addEventListener('click', (e) => {
@@ -25,10 +25,10 @@ keypad.addEventListener('click', (e) => {
     const { action, value } = btn.dataset;
 
     if (value != undefined) {
-        let displayVar = handleNum(value);
+        displayVar = handleNum(value);
         updateDisplay(displayVar);
     } else if (action) {
-        let displayVar = handleAction(action);
+        displayVar = handleAction(action);
         updateDisplay(displayVar);
     }
 })
@@ -42,7 +42,7 @@ function handleNum(value) {
         current += value;
     }
 
-    if (firstNum === '0') {
+    if (operatorSymbol === '') {
         firstNum = current;
     } else {
         nextNum = current;
