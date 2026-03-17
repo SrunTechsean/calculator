@@ -9,6 +9,8 @@ let operator = null;
 let operatorSymbol = '';
 let displayVar = '';
 
+const operatorArr = ['add', 'subtract', 'multiply', 'divide'];
+
 // Math function
 const add = (a, b) => Number(a) + Number(b);
 const subtract = (a, b) => a - b;
@@ -50,7 +52,7 @@ function handleNum(value) {
 
 function handleAction(action) {
     // Get operation
-    if (action !== 'equal') {
+    if (operatorArr.includes(action)) {
         // set operator to show for display
         operatorSymbol = setOperator(action);
         operator = action;
@@ -63,6 +65,11 @@ function handleAction(action) {
         operatorSymbol = '';
     }
 
+    if (action === "clearAll") {
+        firstNum = '0';
+        nextNum = '';
+        operatorSymbol = '';
+    }
     return displayVar = `${firstNum}${operatorSymbol}${nextNum}`;
 }
 
