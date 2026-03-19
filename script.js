@@ -35,29 +35,44 @@ keypad.addEventListener('click', (e) => {
 
 function handleNum(value) {
     let current = operator === null ? firstNum : nextNum;
-    if (current === '0') {
+
+    if (current.includes('.') && value === '.') {
+        return;
+    }
+
+    // Update the current value
+    if (current === '0' && value !== '.') {
         current = value;
-        console.log(current, "working")
-    } else {
+    }
+    else {
         current += value;
     }
 
+    // Store the value into firstNum or nextNum
     if (operatorSymbol === '') {
         firstNum = current;
     } else {
         nextNum = current;
     }
+
+    console.log('current', current, 'firstNum', firstNum, 'nextNum', nextNum, 'operator', operator)
     return displayVar = `${firstNum}${operatorSymbol}${nextNum}`;
 }
 
 function handleAction(action) {
 
+
+    // Handle dot 
+    if (action === 'dot') {
+        handleNum('.');
+    }
     // Calculate when all condition are full
-    if (nextNum !== '' && operator !== null) {
+    else if (nextNum !== '' && operator !== null) {
         firstNum = operate(operator, firstNum, nextNum);
         nextNum = '';
         operatorSymbol = '';
     }
+
 
     // Set new operator 
     if (operatorArr.includes(action)) {
@@ -71,6 +86,9 @@ function handleAction(action) {
         firstNum = '0';
         nextNum = '';
         operatorSymbol = '';
+        operator = null;
+        console.log('current', current, 'firstNum', firstNum, 'nextNum', nextNum, 'operator', operator)
+
     }
     return displayVar = `${firstNum}${operatorSymbol}${nextNum}`;
 }
