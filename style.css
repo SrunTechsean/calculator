@@ -18,7 +18,7 @@ body {
 }
 
 .calculator {
-    min-height: 80vh;
+    min-height: 690px;
     width: 400px;
     background-color: #1E1E1E;
     display: flex;
