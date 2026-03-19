@@ -12,7 +12,7 @@ let displayVar = '';
 const operatorArr = ['add', 'subtract', 'multiply', 'divide'];
 
 // Math function
-const add = (a, b) => Number(a) + Number(b);
+const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const divide = (a, b) => (b == 0) ? 'Error' : (a / b).toFixed(2);
@@ -68,11 +68,11 @@ function handleAction(action) {
     }
     // Calculate when all condition are full
     else if (nextNum !== '' && operator !== null) {
-        firstNum = operate(operator, firstNum, nextNum);
+        firstNum = operate(operator, parseFloat(firstNum), parseFloat(nextNum));
         nextNum = '';
         operatorSymbol = '';
+        operator = null;
     }
-
 
     // Set new operator 
     if (operatorArr.includes(action)) {
