@@ -68,10 +68,8 @@ function handleAction(action) {
     }
     // Calculate when all condition are full
     else if (nextNum !== '' && operator !== null) {
-        firstNum = operate(operator, parseFloat(firstNum), parseFloat(nextNum));
-        nextNum = '';
-        operatorSymbol = '';
-        operator = null;
+        resetVar(operate(operator, parseFloat(firstNum), parseFloat(nextNum)));
+
     }
 
     // Set new operator 
@@ -83,14 +81,19 @@ function handleAction(action) {
 
     // Clear the display to 0
     else if (action === "clearAll") {
-        firstNum = '0';
-        nextNum = '';
-        operatorSymbol = '';
-        operator = null;
+        resetVar('0');
         console.log('current', current, 'firstNum', firstNum, 'nextNum', nextNum, 'operator', operator)
 
     }
     return displayVar = `${firstNum}${operatorSymbol}${nextNum}`;
+}
+
+function resetVar(result) {
+    firstNum = result;
+    nextNum = '';
+    operatorSymbol = '';
+    operator = null;
+
 }
 
 function setOperator(operator) {
