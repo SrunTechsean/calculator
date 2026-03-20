@@ -12,10 +12,12 @@ let displayVar = '';
 const operatorArr = ['add', 'subtract', 'multiply', 'divide'];
 
 // Math function
-const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;
-const multiply = (a, b) => a * b;
-const divide = (a, b) => (b == 0) ? 'Error' : (a / b).toFixed(2);
+const clean = n => Math.round(n * 1e10) / 1e10;
+
+const add = (a, b) => clean(a + b);
+const subtract = (a, b) => clean(a - b);
+const multiply = (a, b) => clean(a * b);
+const divide = (a, b) => (b == 0) ? 'Error' : clean(a / b).toFixed(2);
 
 // Get User's Input
 keypad.addEventListener('click', (e) => {
