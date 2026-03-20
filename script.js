@@ -74,7 +74,7 @@ function handleAction(action) {
     }
     // Calculate when all condition are full
     else if (nextNum !== '' && operator !== null) {
-        resetVar(operate(operator, parseFloat(firstNum), parseFloat(nextNum)));
+        resetVar(operate(operator, parseFloat(firstNum), parseFloat(nextNum)).toString());
     }
 
     // Set new operator 
