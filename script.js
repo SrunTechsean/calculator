@@ -9,7 +9,7 @@ let operator = null;
 let operatorSymbol = '';
 let displayVar = '';
 
-const operatorArr = ['add', 'subtract', 'multiply', 'divide'];
+const operatorArr = ['add', 'subtract', 'multiply', 'divide', 'percent'];
 
 // Math function
 const clean = n => Math.round(n * 1e10) / 1e10;
@@ -18,6 +18,7 @@ const add = (a, b) => clean(a + b);
 const subtract = (a, b) => clean(a - b);
 const multiply = (a, b) => clean(a * b);
 const divide = (a, b) => (b == 0) ? 'Error' : clean(a / b).toFixed(2);
+const percent = (a) => clean(a / 100).toFixed(2);
 
 // Get User's Input
 keypad.addEventListener('click', (e) => {
@@ -85,6 +86,9 @@ function handleAction(action) {
         operatorSymbol = setOperator(action);
         operator = action;
     }
+    if (action === 'percent') {
+        resetVar(operate(operator, parseFloat(firstNum), parseFloat(nextNum)).toString());
+    }
     // Clear the display to 0
     return displayVar = `${firstNum}${operatorSymbol}${nextNum}`;
 }
@@ -120,6 +124,7 @@ function setOperator(operator) {
         case 'subtract': return '-';
         case 'multiply': return '×';
         case 'divide': return '÷';
+        case 'percent': return '%';
         default: console.log('no setOperate');
     }
 }
@@ -131,6 +136,7 @@ function operate(operator, firstNum, nextNum) {
         case 'subtract': return subtract(firstNum, nextNum);
         case 'multiply': return multiply(firstNum, nextNum);
         case 'divide': return divide(firstNum, nextNum);
+        case 'percent': return percent(firstNum);
         default: console.log('no operate');
     }
 }
