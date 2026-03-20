@@ -61,15 +61,20 @@ function handleNum(value) {
 
 function handleAction(action) {
 
-
     // Handle dot 
     if (action === 'dot') {
         handleNum('.');
     }
+    else if (action === "clearAll") {
+        resetVar('0');
+    }
+    // Backspace
+    else if (action === "back") {
+        backSpace();
+    }
     // Calculate when all condition are full
     else if (nextNum !== '' && operator !== null) {
         resetVar(operate(operator, parseFloat(firstNum), parseFloat(nextNum)));
-
     }
 
     // Set new operator 
@@ -78,13 +83,7 @@ function handleAction(action) {
         operatorSymbol = setOperator(action);
         operator = action;
     }
-
     // Clear the display to 0
-    else if (action === "clearAll") {
-        resetVar('0');
-        console.log('current', current, 'firstNum', firstNum, 'nextNum', nextNum, 'operator', operator)
-
-    }
     return displayVar = `${firstNum}${operatorSymbol}${nextNum}`;
 }
 
@@ -93,9 +92,26 @@ function resetVar(result) {
     nextNum = '';
     operatorSymbol = '';
     operator = null;
-
 }
 
+function backSpace() {
+    if (operator === null) {
+        // Remove the last input firstNUm
+        let update = firstNum.slice(0, -1);
+        firstNum = update === '' ? '0' : update;
+    } else if (nextNum === '') {
+
+        // Remove Operator
+        operatorSymbol = '';
+        operator = null;
+    } else {
+
+        // Remove the last input of nextNum
+        nextNum = nextNum.slice(0, -1);
+    }
+}
+
+// Return the operator symbol for display
 function setOperator(operator) {
     switch (operator) {
         case 'add': return '+';
