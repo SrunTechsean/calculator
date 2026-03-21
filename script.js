@@ -20,7 +20,6 @@ const multiply = (a, b) => clean(a * b);
 const divide = (a, b) => (b == 0) ? 'Error' : clean(a / b).toFixed(2);
 const percent = (a) => clean(a / 100).toFixed(2);
 
-
 // Keyboard support
 const keyMap = {
     '0': '0', '1': '1', '2': '2', '3': '3', '4': '4', '5': '5', '6': '6', '7': '7', '8': '8', '9': '9',
@@ -31,6 +30,7 @@ const keyMap = {
     'Escape': 'clearAll',
 };
 
+// Keyboard input
 document.addEventListener('keydown', (e) => {
     if (!(e.key in keyMap)) return;
     const key = keyMap[e.key];
@@ -50,7 +50,8 @@ document.addEventListener('keydown', (e) => {
 
     updateDisplay(displayVar);
 })
-// Get User's Input
+
+// Keypad input
 keypad.addEventListener('click', (e) => {
     const btn = e.target.closest('.btn');
     if (!btn) return;
@@ -76,8 +77,9 @@ function handleNum(value) {
     // Update the current value
     if (current === '0' && value !== '.') {
         current = value;
-    }
-    else {
+    } else if (current === '' && value === '.') {
+        current = '0.';
+    } else {
         current += value;
     }
 
@@ -87,6 +89,7 @@ function handleNum(value) {
     } else {
         nextNum = current;
     }
+
     return displayVar = `${firstNum}${operatorSymbol}${nextNum}`;
 }
 
@@ -157,7 +160,7 @@ function setOperator(operator) {
     }
 }
 
-// Do the fucking operation
+// return the result of operation
 function operate(operator, firstNum, nextNum) {
     switch (operator) {
         case 'add': return add(firstNum, nextNum);
