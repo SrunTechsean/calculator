@@ -28,6 +28,7 @@ const keyMap = {
     '+': 'add', '-': 'subtract', '*': 'multiply', '/': 'divide', '%': 'percent',
     '=': 'equal', 'Enter': 'equal',
     'Backspace': 'backspace',
+    'Escape': 'clearAll',
 };
 
 document.addEventListener('keydown', (e) => {
