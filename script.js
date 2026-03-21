@@ -32,7 +32,7 @@ const keyMap = {
 };
 
 document.addEventListener('keydown', (e) => {
-    console.log(e.key)
+    if (!(e.key in keyMap)) return;
     const key = keyMap[e.key];
     if (/[0-9]/.test(key)) {
         handleNum(key);
@@ -87,8 +87,6 @@ function handleNum(value) {
     } else {
         nextNum = current;
     }
-
-    console.log('current', current, 'firstNum', firstNum, 'nextNum', nextNum, 'operator', operator)
     return displayVar = `${firstNum}${operatorSymbol}${nextNum}`;
 }
 
