@@ -20,6 +20,35 @@ const multiply = (a, b) => clean(a * b);
 const divide = (a, b) => (b == 0) ? 'Error' : clean(a / b).toFixed(2);
 const percent = (a) => clean(a / 100).toFixed(2);
 
+
+// Keyboard support
+const keyMap = {
+    '0': '0', '1': '1', '2': '2', '3': '3', '4': '4', '5': '5', '6': '6', '7': '7', '8': '8', '9': '9',
+    '.': 'dot',
+    '+': 'add', '-': 'subtract', '*': 'multiply', '/': 'divide', '%': 'percent',
+    '=': 'equal', 'Enter': 'equal',
+    'Backspace': 'backspace',
+};
+
+document.addEventListener('keydown', (e) => {
+    console.log(e.key)
+    const key = keyMap[e.key];
+    if (/[0-9]/.test(key)) {
+        handleNum(key);
+    } else if (operatorArr.includes(key)) {
+        handleAction(key);
+    } else if (key === 'dot') {
+        handleAction(key);
+    } else if (key === 'equal') {
+        handleAction(key);
+    } else if (key === 'backspace') {
+        handleAction(key);
+    } else if (key === 'clearAll') {
+        handleAction(key);
+    }
+
+    updateDisplay(displayVar);
+})
 // Get User's Input
 keypad.addEventListener('click', (e) => {
     const btn = e.target.closest('.btn');
@@ -72,7 +101,7 @@ function handleAction(action) {
         resetVar('0');
     }
     // Backspace
-    else if (action === "back") {
+    else if (action === "backspace") {
         backSpace();
     }
     // Calculate when all condition are full
@@ -143,4 +172,6 @@ function operate(operator, firstNum, nextNum) {
 
 function updateDisplay(value) {
     display.textContent = value;
-} 
+}
+
+// TODO: fix nextNum from starting with .
