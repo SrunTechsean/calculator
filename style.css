@@ -71,3 +71,7 @@ svg {
     height: 40px;
     fill: #fff;
 }
+
+.btn {
+    touch-action: manipulation;
+}
